@@ -5,13 +5,20 @@
 # This information is also critical to our ability to help monitor hundreds of vessels and provide recommendations to our customers.
 # Reports are distributed to our clients weekly, providing them with weekly snapshots of the performance of it's engines.
 # This batch file was created as an solution to a problem we were having with the frequent "fat-fingering" of our technicians.
-# Having a tech type most of this information line by line was cumbersome and problematic for our support team. 
+# Having a tech type most of this information line by line was cumbersome and problematic for our support team.
 # Protecting certain folders was crucial to retaining information that can be loss due to crashes.
+# A simple extra letter, misspelled path, missing quotation could result into loss of information.
+# We decided to automate as many processes as possible to relieve techs of the nuiances of typing file paths.
 
+
+// make directories on C drive.
 mkdir c:\druntime\persist
 mkdir c:\PHConnect
+
+// starts up executable software needed for each panel located on Tech's flash drive.
 start "" "\Connect Setup Files\DAQFactoryInst_16_3.exe"
 PAUSE
+// if software exists do..
 IF EXIST C:druntime\DAQFactory.exe (
 
 	xcopy PHConnect c:\PHConnect\ /e /y
@@ -22,13 +29,16 @@ IF EXIST C:druntime\DAQFactory.exe (
 	start "" "\shortcut.vbs"
 	start "" "\RoC.vbs"
 	fbwfmgr /enable
-	fbwfmgr /addvolume c:
+	
+	// protect folders
+.	fbwfmgr /addvolume c:
 	fbwfmgr /addexclusion c: "\users\admin\AppData\Local\Temp"
 	fbwfmgr /addexclusion c: "\Users\admin\AppData\Local\LogMeInInc"
 	fbwfmgr /addexclusion c: "\Windows\TEMP\LogMeInInc"
 	fbwfmgr /addexclusion c: "\Windows\System32\Winevt\Logs"
 	fbwfmgr /addexclusion c: "\PHConnect"
-	fbwfmgr /addexclusion c: "\druntime\persist"
+	fbwfmgr /addexclusion c: "\druntime\persist" 
+	// run java executable on flash drive
 	start "" "\Connect Setup Files\jre-8u102-windows-i586.exe"
 )
 
