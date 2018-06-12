@@ -1,0 +1,32 @@
+mkdir c:\druntime\persist
+mkdir c:\PHConnect
+start "" "\Connect Setup Files\DAQFactoryInst_16_3.exe"
+PAUSE
+IF EXIST C:druntime\DAQFactory.exe (
+
+	xcopy PHConnect c:\PHConnect\ /e /y
+	rename c:\druntime\DAQFactory.exe Runtime.exe
+	rmdir c:\druntime\samples /s /q
+	rmdir c:\druntime\LJGuideSamples /s /q
+	copy "Connect Setup Files\sp.bpp" c:\druntime
+	start "" "\shortcut.vbs"
+	start "" "\RoC.vbs"
+	fbwfmgr /enable
+	fbwfmgr /addvolume c:
+	fbwfmgr /addexclusion c: "\users\admin\AppData\Local\Temp"
+	fbwfmgr /addexclusion c: "\Users\admin\AppData\Local\LogMeInInc"
+	fbwfmgr /addexclusion c: "\Windows\TEMP\LogMeInInc"
+	fbwfmgr /addexclusion c: "\Windows\System32\Winevt\Logs"
+	fbwfmgr /addexclusion c: "\PHConnect"
+	fbwfmgr /addexclusion c: "\druntime\persist"
+	start "" "\Connect Setup Files\jre-8u102-windows-i586.exe"
+)
+
+else 
+	ECHO DID NOT WORK!
+	PAUSE
+	exit /b
+
+
+
+	
