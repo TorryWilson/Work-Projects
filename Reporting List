@@ -1,3 +1,13 @@
+# VB
+# Excel 2013
+# Side project at work that helps quicken a process.
+# From the 100+ vessels I monitor, we get .csv files twice a day from each one that contains temperatures, pressures, hours, etc.
+# Those files (attachments) are sent from our software inside those panels to an Outlook box and then redirected to a Desktop folder on my computer.
+# This desktop folder has subfolders for every vessel we monitor.
+# Before this program I had to dive into every folder to make sure we were getting reports daily from the vessels.
+# This program with a simple hot key function, loops through the Desktop folder and dives into each subfolder (vessel) looking for the last modified file in each subfolder. 
+
+
 Public FSO As New FileSystemObject
 Sub GetSubFolders()
 
