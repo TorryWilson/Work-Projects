@@ -1,3 +1,13 @@
+# Windows 7 Embedded
+# Command line scripting batch file that's primary job is to add exclusions using File-Based Write Filters.
+# Why? At my current employer, we dispatch Technicians onboard vessels to mount and install panels to monitor engine performance.
+# Our panels provide critical information to our clients about the performance of their engines. 
+# This information is also critical to our ability to help monitor hundreds of vessels and provide recommendations to our customers.
+# Reports are distributed to our clients weekly, providing them with weekly snapshots of the performance of it's engines.
+# This batch file was created as an solution to a problem we were having with the frequent "fat-fingering" of our technicians.
+# Having a tech type most of this information line by line was cumbersome and problematic for our support team. 
+# Protecting certain folders was crucial to retaining information that can be loss due to crashes.
+
 mkdir c:\druntime\persist
 mkdir c:\PHConnect
 start "" "\Connect Setup Files\DAQFactoryInst_16_3.exe"
