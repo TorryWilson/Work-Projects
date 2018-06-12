@@ -1,0 +1,42 @@
+Public FSO As New FileSystemObject
+Sub GetSubFolders()
+
+  Dim f As Folder
+  Dim subfold As Folder
+  Dim item As Scripting.File
+  Dim NextRow As Long
+  Dim message As String
+  Cells(1, "A").Value = "File Name"
+  Cells(1, "B").Value = "Modified Date/Time"
+  
+  NextRow = ActiveSheeet.Cells(Rows.Count, "A").End(x1Up).Row + 2
+  
+  set f = FSO.GetFolder("C:\Users\pc29258\Desktop\CP Download\")
+  For Each subfold in f.SubFolders
+      If (subfold.Files.Count = 0) Then
+      Cells(NextRow, 1).Value = subfold.Name
+      Cells(NextRow, 2).Value = "Not this month"
+      End If
+   For Each item in subfold.Files
+      Cells(NextRow, 1).Value = subfold.Name
+      Cells(NextRow, 2).Value = item.DateLastModified
+      
+      Next item
+      NextRow = NextRow + 1
+      
+   Next subfold
+   
+   Range("A3:B100").Select
+   ActiveWorkbook.Worksheets("Sheet1").Sort.SortFields.Clear
+   ActiveWorkbook.Worksheets("Sheet1").Sort.SortFields.Add Key:=Range("B3:B100") _ , SortOn:=x1SortOnValues, Order:=x1Ascending, DataOption:=x1SortNormal
+   With ActiveWorkbook.Worksheets("Sheet1").Sort
+        .SetRange Range("A3:B100")
+        .Header = x1Guess
+        .MatchCase = False
+        .Orientation = x1TopToBottom
+        .SortMethod = x1PinYin
+        .Apply
+    End With
+    
+  
+  End Sub
